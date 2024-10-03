@@ -8,12 +8,23 @@
 <body>
   <h1>Third Party Cookie Checker</h1>
   <h3>Render in an iFrame and listen for a message with the string '3pcSupported' to validate if 3rd Party Cookies are enabled.</h3>
+  <h3>Using cookie testCookie=1 for validation</h3>
 
   <script>
     window.onload = function() {
-      const message = '3pcSupported';
-
-      window.parent.postMessage(message, '*');
+      try {
+        document.cookie = "testCookie=1; SameSite=None; Secure";
+        
+        // Check if the cookie was set and can be retrieved
+        const cookiesEnabled = document.cookie.includes('testCookie=1');
+        const message = cookiesEnabled ? '3pcSupported' : '3pcNotSupported';
+        
+        // Post the result to the parent window
+        window.parent.postMessage(message, '*');
+      } catch (e) {
+        // If an error occurs (like cookies being blocked), post cookiesDisabled
+        window.parent.postMessage('cookiesDisabled', '*');
+      }
     };
   </script>
 </body>
