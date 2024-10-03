@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Third Party Checker</title>
+</head>
+<body>
+  <h1>Third Party Cookie Checker</h1>
+  <h3>Render in an iFrame and listen for a message with the string '3pcSupported' to validate if 3rd Party Cookies are enabled.</h3>
+
+  <script>
+    window.onload = function() {
+      const message = '3pcSupported';
+
+      window.parent.postMessage(message, '*');
+    };
+  </script>
+</body>
+</html>
